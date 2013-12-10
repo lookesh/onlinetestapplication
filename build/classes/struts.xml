@@ -22,6 +22,11 @@
 			method="registerUser">
 			<result name="success">/admin_home.jsp</result>
 		</action>
+		<action name="registerAdmin" class="com.agreeya.action.OnlineTestAction"
+			method="RegisterAdmin">
+			<result name="success">/admin_home.jsp</result>
+			<result name="error">/register_admin.jsp</result>
+		</action>
 	</package>
 </struts>
 

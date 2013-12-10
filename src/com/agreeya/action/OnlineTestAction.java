@@ -18,28 +18,32 @@ public class OnlineTestAction extends ActionSupport{
 		this.user = user;
 	}
 	OnlineTestBd bd=new OnlineTestBd();
-	
+
 	public String registerUser(){
-		
+
 		bd.registerUser(getUser());
 		return SUCCESS;	
 	}
 	public String adminLogin(){
 		try {
 			if(bd.adminLogin(getUser()) && getUser().getUsername()!= null && getUser().getPassword()!=null){   
-			return SUCCESS;
+				return SUCCESS;
 			}
 			else
 			{
 				addActionMessage(getText("login.failed"));
-				
+
 			}
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return ERROR;
 	}
-	
+	public String RegisterAdmin(){
+		bd.RegisterAdmin(getUser());
+		return SUCCESS;	
+	}
+
 }

@@ -8,6 +8,7 @@ import com.agreeya.dto.UserBean;
 import com.sun.org.apache.xerces.internal.impl.dv.util.Base64;
 
 public class OnlineTestDao {
+	private String Message=null;
 	public void registerUser(UserBean user){      //insert user detail
 		Connection con;
 		PreparedStatement stm;
@@ -41,9 +42,26 @@ public class OnlineTestDao {
 		}
 
 	}
-	
+
+	public void RegisterAdmin(UserBean user) throws ClassNotFoundException{
+		Connection con;
+		PreparedStatement stm;
+		try{
+			con=DatabaseConnection.getConnection();
+			String SQLregister="insert into register_admin(username,admin_password) values(?,?)";
+			stm=con.prepareStatement(SQLregister);
+			stm.setString(1, user.getUsername());
+			stm.setString(2, user.getPassword());
+			stm.executeUpdate();
+		}
+		catch(SQLException e){
+			Message = e.getMessage();
+			System.out.println(Message);
+		}
+	}
+
 	public boolean adminLogin(UserBean user){     //user login
-	boolean status=false;
+		boolean status=false;
 		Connection con=null;
 		PreparedStatement stm=null;
 		try{ 
@@ -57,7 +75,7 @@ public class OnlineTestDao {
 			stm.setString(1,user.getUsername()); 
 			stm.setString(2,user.getPassword());
 			ResultSet rs=stm.executeQuery();
-		    status=rs.next();
+			status=rs.next();
 		}
 		catch(SQLException e)
 		{
